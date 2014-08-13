@@ -27,6 +27,28 @@ limitations under the License.
 using namespace OVR;
 using namespace OVR::OvrPlatform;
 
+SCNMatrix4 SCNMatrix4FromMatrix4f(Matrix4f matrix4f) {
+    SCNMatrix4 matrix;
+    matrix.m11 = matrix4f.M[0][0];
+    matrix.m12 = matrix4f.M[0][1];
+    matrix.m13 = matrix4f.M[0][2];
+    matrix.m14 = matrix4f.M[0][3];
+    matrix.m21 = matrix4f.M[1][0];
+    matrix.m22 = matrix4f.M[1][1];
+    matrix.m23 = matrix4f.M[1][2];
+    matrix.m24 = matrix4f.M[1][3];
+    matrix.m31 = matrix4f.M[2][0];
+    matrix.m32 = matrix4f.M[2][1];
+    matrix.m33 = matrix4f.M[2][2];
+    matrix.m34 = matrix4f.M[2][3];
+    matrix.m41 = matrix4f.M[3][0];
+    matrix.m42 = matrix4f.M[3][1];
+    matrix.m43 = matrix4f.M[3][2];
+    matrix.m44 = matrix4f.M[3][3];
+    
+    return matrix;
+}
+
 @implementation OVRApp
 
 - (void)dealloc
@@ -154,7 +176,8 @@ static int MapModifiers(unsigned long xmod)
 
 @interface OVRView ()
 @property (nonatomic, retain) SCNScene *scene;
-@property (nonatomic, retain) SCNRenderer *renderer;
+@property (nonatomic, retain) SCNRenderer *leftRenderer;
+@property (nonatomic, retain) SCNRenderer *rightRenderer;
 @end
 
 @implementation OVRView {
@@ -359,15 +382,17 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
 // LXI
 - (void)setupSceneKit {
     self.scene = [SCNScene scene];
-    self.renderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
-    self.renderer.scene = self.scene;
+    self.leftRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
+    self.rightRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
+    self.leftRenderer.scene = self.scene;
+    self.rightRenderer.scene = self.scene;
 //    self.renderer.autoenablesDefaultLighting = YES;
-    
-    SCNCamera *camera = [SCNCamera camera];
-    SCNNode *camNode = [SCNNode node];
-    camNode.camera = camera;
-    camNode.position = SCNVector3Make(0, 0, 10);
-    self.renderer.pointOfView = camNode;
+    self.leftRenderer.pointOfView = [SCNNode node];
+    self.rightRenderer.pointOfView = [SCNNode node];
+    self.leftRenderer.pointOfView.camera = [SCNCamera camera];
+    self.rightRenderer.pointOfView.camera = [SCNCamera camera];
+    self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 10);
+    self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 10);
     
     SCNNode *node = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:0.1]];
     SCNAction *scale1 = [SCNAction scaleTo:2 duration:1];
@@ -381,11 +406,29 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     [self.scene.rootNode addChildNode:node];
 }
 
-- (void)renderEyeView:(ovrEyeType)eye {
-    [self.renderer render];
+- (SCNRenderer *)rendererForEye:(ovrEyeType)eye {
+    switch (eye) {
+        case ovrEye_Left:
+            return self.leftRenderer;
+            break;
+        case ovrEye_Right:
+            return self.rightRenderer;
+        default:
+            break;
+    }
+    return nil;
+}
+
+- (void)renderEyeView:(ovrEyeType)eye projection:(Matrix4f)projection pose:(ovrPosef)pose {
+    SCNRenderer *renderer = [self rendererForEye:eye];
+    // Just gives us a black screen at the moment...
+//    renderer.pointOfView.camera.projectionTransform = SCNMatrix4FromMatrix4f(projection);
+    [renderer render];
 }
 
 @end
+
+
 
 namespace OVR { namespace OvrPlatform { namespace OSX {
 
@@ -538,8 +581,8 @@ bool PlatformCore::SetFullscreen(const Render::RendererParams& rp, int fullscree
 }
 
     // LXI
-    void PlatformCore::RenderEyeView(ovrEyeType eye) {
-        [(OVRView*)View renderEyeView:eye];
+    void PlatformCore::RenderEyeView(ovrEyeType eye, Matrix4f projection, ovrPosef pose) {
+        [(OVRView*)View renderEyeView:eye projection:projection pose:pose];
     }
     // LXI
 }}
