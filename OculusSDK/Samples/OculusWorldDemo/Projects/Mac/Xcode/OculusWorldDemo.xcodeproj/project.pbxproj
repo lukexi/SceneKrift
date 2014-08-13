@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2B9CEA7199B678000FF8989 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B9CEA6199B678000FF8989 /* SceneKit.framework */; };
 		E83DE6F419197F6A00EC97E1 /* OptionMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83DE6F019197F6A00EC97E1 /* OptionMenu.cpp */; };
 		E83DE6F519197F6A00EC97E1 /* RenderProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83DE6F219197F6A00EC97E1 /* RenderProfiler.cpp */; };
 		E879CFE9190866D1008CE996 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = E879CFE8190866D1008CE996 /* Assets */; };
@@ -25,13 +26,14 @@
 		E8E0A57819085FE50077EB8E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8E0A57719085FE50077EB8E /* OpenGL.framework */; };
 		E8E0A57A190860110077EB8E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8E0A579190860110077EB8E /* IOKit.framework */; };
 		E8E0A584190861120077EB8E /* OculusWorldDemo_Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E0A57B190861110077EB8E /* OculusWorldDemo_Scene.cpp */; };
-		E8E0A585190861120077EB8E /* OculusWorldDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E0A57C190861110077EB8E /* OculusWorldDemo.cpp */; };
+		E8E0A585190861120077EB8E /* OculusWorldDemo.mm in Sources */ = {isa = PBXBuildFile; fileRef = E8E0A57C190861110077EB8E /* OculusWorldDemo.mm */; };
 		E8E0A587190861120077EB8E /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E0A580190861110077EB8E /* Player.cpp */; };
 		E8E0A58B190861220077EB8E /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8E0A589190861220077EB8E /* tinyxml2.cpp */; };
 		E8E0A58D1908619A0077EB8E /* libovr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8E0A58C1908619A0077EB8E /* libovr.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C2B9CEA6199B678000FF8989 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		E83DE6F019197F6A00EC97E1 /* OptionMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OptionMenu.cpp; path = ../../../../CommonSrc/Util/OptionMenu.cpp; sourceTree = "<group>"; };
 		E83DE6F119197F6A00EC97E1 /* OptionMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionMenu.h; path = ../../../../CommonSrc/Util/OptionMenu.h; sourceTree = "<group>"; };
 		E83DE6F219197F6A00EC97E1 /* RenderProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderProfiler.cpp; path = ../../../../CommonSrc/Util/RenderProfiler.cpp; sourceTree = "<group>"; };
@@ -68,7 +70,7 @@
 		E8E0A57719085FE50077EB8E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		E8E0A579190860110077EB8E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		E8E0A57B190861110077EB8E /* OculusWorldDemo_Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OculusWorldDemo_Scene.cpp; path = ../../../OculusWorldDemo_Scene.cpp; sourceTree = "<group>"; };
-		E8E0A57C190861110077EB8E /* OculusWorldDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OculusWorldDemo.cpp; path = ../../../OculusWorldDemo.cpp; sourceTree = "<group>"; };
+		E8E0A57C190861110077EB8E /* OculusWorldDemo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OculusWorldDemo.mm; path = ../../../OculusWorldDemo.mm; sourceTree = "<group>"; };
 		E8E0A57D190861110077EB8E /* OculusWorldDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OculusWorldDemo.h; path = ../../../OculusWorldDemo.h; sourceTree = "<group>"; };
 		E8E0A580190861110077EB8E /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Player.cpp; path = ../../../Player.cpp; sourceTree = "<group>"; };
 		E8E0A581190861110077EB8E /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = ../../../Player.h; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2B9CEA7199B678000FF8989 /* SceneKit.framework in Frameworks */,
 				E8E0A58D1908619A0077EB8E /* libovr.a in Frameworks */,
 				E8E0A57A190860110077EB8E /* IOKit.framework in Frameworks */,
 				E8E0A57819085FE50077EB8E /* OpenGL.framework in Frameworks */,
@@ -111,7 +114,7 @@
 				E8E0A589190861220077EB8E /* tinyxml2.cpp */,
 				E8E0A58A190861220077EB8E /* tinyxml2.h */,
 				E8E0A57B190861110077EB8E /* OculusWorldDemo_Scene.cpp */,
-				E8E0A57C190861110077EB8E /* OculusWorldDemo.cpp */,
+				E8E0A57C190861110077EB8E /* OculusWorldDemo.mm */,
 				E8E0A57D190861110077EB8E /* OculusWorldDemo.h */,
 				E8E0A580190861110077EB8E /* Player.cpp */,
 				E8E0A581190861110077EB8E /* Player.h */,
@@ -135,6 +138,7 @@
 		E8CC57C91908266300EEEC84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2B9CEA6199B678000FF8989 /* SceneKit.framework */,
 				E8E0A58C1908619A0077EB8E /* libovr.a */,
 				E8E0A579190860110077EB8E /* IOKit.framework */,
 				E8E0A57719085FE50077EB8E /* OpenGL.framework */,
@@ -276,7 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8E0A57019085ED00077EB8E /* Render_GL_Device.cpp in Sources */,
-				E8E0A585190861120077EB8E /* OculusWorldDemo.cpp in Sources */,
+				E8E0A585190861120077EB8E /* OculusWorldDemo.mm in Sources */,
 				E8E0A584190861120077EB8E /* OculusWorldDemo_Scene.cpp in Sources */,
 				E83DE6F419197F6A00EC97E1 /* OptionMenu.cpp in Sources */,
 				E8E0A56919085ED00077EB8E /* Platform.cpp in Sources */,

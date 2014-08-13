@@ -22,6 +22,7 @@ limitations under the License.
 ************************************************************************************/
 
 #import "../Platform/OSX_PlatformObjc.h"
+#import <SceneKit/SceneKit.h>
 
 using namespace OVR;
 using namespace OVR::OvrPlatform;
@@ -151,7 +152,15 @@ static int MapModifiers(unsigned long xmod)
     return mod;
 }
 
-@implementation OVRView
+@interface OVRView ()
+@property (nonatomic, retain) SCNScene *scene;
+@property (nonatomic, retain) SCNRenderer *renderer;
+@end
+
+@implementation OVRView {
+
+    
+}
 
 -(BOOL) acceptsFirstResponder
 {
@@ -322,6 +331,7 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     GLint swap = 0;
     [[self openGLContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
     //[self setWantsBestResolutionOpenGLSurface:YES];
+    [self setupSceneKit];
     return self;
 }
 
@@ -344,6 +354,35 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     else
         exit(0);
     return 1;
+}
+
+// LXI
+- (void)setupSceneKit {
+    self.scene = [SCNScene scene];
+    self.renderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
+    self.renderer.scene = self.scene;
+//    self.renderer.autoenablesDefaultLighting = YES;
+    
+    SCNCamera *camera = [SCNCamera camera];
+    SCNNode *camNode = [SCNNode node];
+    camNode.camera = camera;
+    camNode.position = SCNVector3Make(0, 0, 10);
+    self.renderer.pointOfView = camNode;
+    
+    SCNNode *node = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:0.1]];
+    SCNAction *scale1 = [SCNAction scaleTo:2 duration:1];
+    SCNAction *scale2 = [SCNAction scaleTo:1 duration:1];
+    scale1.timingMode = SCNActionTimingModeEaseInEaseOut;
+    scale2.timingMode = SCNActionTimingModeEaseInEaseOut;
+    [node runAction:[SCNAction repeatActionForever:[SCNAction sequence:@[scale1, scale2]]]];
+    SCNMaterial *material = [SCNMaterial material];
+    material.diffuse.contents = [NSColor redColor];
+    node.geometry.firstMaterial = material;
+    [self.scene.rootNode addChildNode:node];
+}
+
+- (void)renderEyeView:(ovrEyeType)eye {
+    [self.renderer render];
 }
 
 @end
@@ -498,6 +537,11 @@ bool PlatformCore::SetFullscreen(const Render::RendererParams& rp, int fullscree
     return 1;
 }
 
+    // LXI
+    void PlatformCore::RenderEyeView(ovrEyeType eye) {
+        [(OVRView*)View renderEyeView:eye];
+    }
+    // LXI
 }}
 // GL
 namespace Render { namespace GL { namespace OSX {
