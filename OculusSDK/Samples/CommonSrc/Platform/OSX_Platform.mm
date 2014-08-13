@@ -279,6 +279,8 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
         case NSRightMouseDown:
         case NSOtherMouseDown:
             break;
+        default:
+            break;
     }
 }
 
