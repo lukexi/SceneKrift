@@ -311,7 +311,7 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
 //        NSOpenGLPFAWindow,
         NSOpenGLPFADoubleBuffer,
         NSOpenGLPFADepthSize, 24,
-        nil
+        NULL
     };
         
     NSOpenGLPixelFormat *pf = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attr] autorelease];
