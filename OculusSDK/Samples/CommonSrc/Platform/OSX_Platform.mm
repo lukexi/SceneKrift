@@ -171,10 +171,10 @@ static int MapModifiers(unsigned long xmod)
 
 -(void) warpMouseToCenter
 {
-    NSPoint w;
-    w.x = _Platform->Width/2.0f;
-    w.y = _Platform->Height/2.0f;
-    w = [[self window] convertBaseToScreen:w];
+    NSRect r;
+    r.origin.x = _Platform->Width/2.0f;
+    r.origin.y = _Platform->Height/2.0f;
+    NSPoint w = [[self window] convertRectToScreen:r].origin;
     CGDirectDisplayID disp = [OVRView displayFromScreen:[[self window] screen]];
     CGPoint p = {w.x, CGDisplayPixelsHigh(disp)-w.y};
     CGDisplayMoveCursorToPoint(disp, p);
