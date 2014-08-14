@@ -49,6 +49,23 @@ SCNMatrix4 SCNMatrix4FromMatrix4f(Matrix4f matrix4f) {
     return matrix;
 }
 
+SCNQuaternion SCNQuaternionFromOVRQuatf(ovrQuatf quatf) {
+    SCNQuaternion quaternion;
+    quaternion.x = quatf.x;
+    quaternion.y = quatf.y;
+    quaternion.z = quatf.z;
+    quaternion.w = quatf.w;
+    return quaternion;
+}
+
+SCNVector3 SCNVector3FromOVRVector3(ovrVector3f vec3f) {
+    SCNVector3 vector3;
+    vector3.x = vec3f.x;
+    vector3.y = vec3f.y;
+    vector3.z = vec3f.z;
+    return vector3;
+}
+
 @implementation OVRApp
 
 - (void)dealloc
@@ -386,15 +403,24 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     self.rightRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
     self.leftRenderer.scene = self.scene;
     self.rightRenderer.scene = self.scene;
-//    self.renderer.autoenablesDefaultLighting = YES;
+    // Causes all objects to be rendered black
+//    self.leftRenderer.autoenablesDefaultLighting = YES;
+//    self.rightRenderer.autoenablesDefaultLighting = YES;
     self.leftRenderer.pointOfView = [SCNNode node];
     self.rightRenderer.pointOfView = [SCNNode node];
+    [self.scene.rootNode addChildNode:self.leftRenderer.pointOfView];
+    [self.scene.rootNode addChildNode:self.rightRenderer.pointOfView];
     self.leftRenderer.pointOfView.camera = [SCNCamera camera];
     self.rightRenderer.pointOfView.camera = [SCNCamera camera];
-    self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 10);
-    self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 10);
+    self.leftRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
+    self.rightRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
+    self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 0);
+    self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 0);
+//    self.leftRenderer.pointOfView.camera.xFov = 110;
+//    self.rightRenderer.pointOfView.camera.yFov = 110;
     
-    SCNNode *node = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:0.1]];
+    SCNNode *node = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:1]];
+    node.position = SCNVector3Make(0, 0, -50);
     SCNAction *scale1 = [SCNAction scaleTo:2 duration:1];
     SCNAction *scale2 = [SCNAction scaleTo:1 duration:1];
     scale1.timingMode = SCNActionTimingModeEaseInEaseOut;
@@ -402,8 +428,20 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     [node runAction:[SCNAction repeatActionForever:[SCNAction sequence:@[scale1, scale2]]]];
     SCNMaterial *material = [SCNMaterial material];
     material.diffuse.contents = [NSColor redColor];
+    material.locksAmbientWithDiffuse = YES;
     node.geometry.firstMaterial = material;
     [self.scene.rootNode addChildNode:node];
+    
+    SCNNode *big = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:20]];
+    big.position = SCNVector3Make(0, 0, -100);
+    big.geometry.firstMaterial = [SCNMaterial material];
+    [self.scene.rootNode addChildNode:big];
+    
+    // Also causes all objects to be rendered black
+//    SCNNode *light = [SCNNode node];
+//    light.light = [SCNLight light];
+//    light.light.type = SCNLightTypeOmni;
+//    [self.scene.rootNode addChildNode:light];
 }
 
 - (SCNRenderer *)rendererForEye:(ovrEyeType)eye {
@@ -419,10 +457,16 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     return nil;
 }
 
-- (void)renderEyeView:(ovrEyeType)eye projection:(Matrix4f)projection pose:(ovrPosef)pose {
+- (void)renderEyeView:(ovrEyeType)eye
+           projection:(Matrix4f)projection
+                 pose:(ovrPosef)pose {
+    SCNVector3 position = SCNVector3FromOVRVector3(pose.Position);
+    position.x += eye == ovrEye_Left ? -1 : 1;
     SCNRenderer *renderer = [self rendererForEye:eye];
-    // Just gives us a black screen at the moment...
-//    renderer.pointOfView.camera.projectionTransform = SCNMatrix4FromMatrix4f(projection);
+    // Oops, this doesn't even seem to be necessary! Gives weird distorted image.
+//    renderer.pointOfView.camera.projectionTransform = SCNMatrix4Invert(SCNMatrix4FromMatrix4f(projection));
+    renderer.pointOfView.orientation = SCNQuaternionFromOVRQuatf(pose.Orientation);
+    renderer.pointOfView.position = position;
     [renderer render];
 }
 
