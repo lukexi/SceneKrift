@@ -421,21 +421,48 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     
     SCNNode *node = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:1]];
     node.position = SCNVector3Make(0, 0, -50);
-    SCNAction *scale1 = [SCNAction scaleTo:2 duration:1];
-    SCNAction *scale2 = [SCNAction scaleTo:1 duration:1];
-    scale1.timingMode = SCNActionTimingModeEaseInEaseOut;
-    scale2.timingMode = SCNActionTimingModeEaseInEaseOut;
-    [node runAction:[SCNAction repeatActionForever:[SCNAction sequence:@[scale1, scale2]]]];
     SCNMaterial *material = [SCNMaterial material];
     material.diffuse.contents = [NSColor redColor];
     material.locksAmbientWithDiffuse = YES;
     node.geometry.firstMaterial = material;
     [self.scene.rootNode addChildNode:node];
     
+    SCNAction *scale1 = [SCNAction scaleTo:2 duration:1];
+    SCNAction *scale2 = [SCNAction scaleTo:1 duration:1];
+    scale1.timingMode = SCNActionTimingModeEaseInEaseOut;
+    scale2.timingMode = SCNActionTimingModeEaseInEaseOut;
+    [node runAction:[SCNAction repeatActionForever:[SCNAction sequence:@[scale1, scale2]]]];
+    
     SCNNode *big = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:20]];
     big.position = SCNVector3Make(0, 0, -100);
     big.geometry.firstMaterial = [SCNMaterial material];
     [self.scene.rootNode addChildNode:big];
+    
+    
+    SCNNode *huge = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:2000]];
+    huge.position = SCNVector3Make(0, 0, -4000);
+    huge.geometry.firstMaterial = [SCNMaterial material];
+    [self.scene.rootNode addChildNode:huge];
+    
+    SCNAction *move1 = [SCNAction moveTo:SCNVector3Make(-500, 0, -4000) duration:1];
+    SCNAction *move2 = [SCNAction moveTo:SCNVector3Make(500, 0, -4000) duration:1];
+    move1.timingMode = SCNActionTimingModeEaseInEaseOut;
+    move2.timingMode = SCNActionTimingModeEaseInEaseOut;
+    [huge runAction:[SCNAction repeatActionForever:[SCNAction sequence:@[move1, move2]]]];
+    
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"contents"];
+    anim.fromValue = [NSColor purpleColor];
+    anim.toValue = [NSColor orangeColor];
+    anim.autoreverses = YES;
+    anim.repeatCount = MAXFLOAT;
+    anim.duration = 5;
+    [huge.geometry.firstMaterial addAnimation:anim forKey:nil];
+    
+    SCNNode *room = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:10000 height:10000 length:10000 chamferRadius:0]];
+    room.geometry.firstMaterial = [SCNMaterial material];
+    room.geometry.firstMaterial.doubleSided = YES;
+    room.geometry.firstMaterial.diffuse.contents = [NSColor greenColor];
+    [self.scene.rootNode addChildNode:room];
     
     // Also causes all objects to be rendered black
 //    SCNNode *light = [SCNNode node];
@@ -465,12 +492,13 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     SCNVector3 position = SCNVector3FromOVRVector3(pose.Position);
     position.x += eyeRenderDesc.Eye == ovrEye_Left ? -1 : 1;
     SCNRenderer *renderer = [self rendererForEye:eyeRenderDesc.Eye];
-    // Oops, this doesn't even seem to be necessary! Gives weird distorted image.
-//    renderer.pointOfView.camera.projectionTransform = SCNMatrix4Invert(SCNMatrix4FromMatrix4f(projection));
     renderer.pointOfView.orientation = SCNQuaternionFromOVRQuatf(pose.Orientation);
     renderer.pointOfView.position = position;
     renderer.pointOfView.camera.xFov = fov.GetHorizontalFovDegrees();
     renderer.pointOfView.camera.yFov = fov.GetVerticalFovDegrees();
+    // Oops, this doesn't even seem to be necessary! Gives weird distorted image.
+    // Maybe because the projectionTransform is already set on the outside?
+    //    renderer.pointOfView.camera.projectionTransform = SCNMatrix4Invert(SCNMatrix4FromMatrix4f(projection));
     [renderer render];
 }
 

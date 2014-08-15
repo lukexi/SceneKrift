@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C2B9CEA7199B678000FF8989 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B9CEA6199B678000FF8989 /* SceneKit.framework */; };
+		C2FC8CC5199E446700E883A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2FC8CC4199E446700E883A7 /* QuartzCore.framework */; };
 		E83DE6F419197F6A00EC97E1 /* OptionMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83DE6F019197F6A00EC97E1 /* OptionMenu.cpp */; };
 		E83DE6F519197F6A00EC97E1 /* RenderProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83DE6F219197F6A00EC97E1 /* RenderProfiler.cpp */; };
 		E879CFE9190866D1008CE996 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = E879CFE8190866D1008CE996 /* Assets */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		C2B9CEA6199B678000FF8989 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		C2FC8CC4199E446700E883A7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E83DE6F019197F6A00EC97E1 /* OptionMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OptionMenu.cpp; path = ../../../../CommonSrc/Util/OptionMenu.cpp; sourceTree = "<group>"; };
 		E83DE6F119197F6A00EC97E1 /* OptionMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionMenu.h; path = ../../../../CommonSrc/Util/OptionMenu.h; sourceTree = "<group>"; };
 		E83DE6F219197F6A00EC97E1 /* RenderProfiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderProfiler.cpp; path = ../../../../CommonSrc/Util/RenderProfiler.cpp; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2FC8CC5199E446700E883A7 /* QuartzCore.framework in Frameworks */,
 				C2B9CEA7199B678000FF8989 /* SceneKit.framework in Frameworks */,
 				E8E0A58D1908619A0077EB8E /* libovr.a in Frameworks */,
 				E8E0A57A190860110077EB8E /* IOKit.framework in Frameworks */,
@@ -138,6 +141,7 @@
 		E8CC57C91908266300EEEC84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2FC8CC4199E446700E883A7 /* QuartzCore.framework */,
 				C2B9CEA6199B678000FF8989 /* SceneKit.framework */,
 				E8E0A58C1908619A0077EB8E /* libovr.a */,
 				E8E0A579190860110077EB8E /* IOKit.framework */,
