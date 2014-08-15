@@ -457,16 +457,20 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     return nil;
 }
 
-- (void)renderEyeView:(ovrEyeType)eye
+- (void)renderEyeView:(ovrEyeRenderDesc)eyeRenderDesc
            projection:(Matrix4f)projection
                  pose:(ovrPosef)pose {
+    OVR::FovPort fov = OVR::FovPort(eyeRenderDesc.Fov);
+    
     SCNVector3 position = SCNVector3FromOVRVector3(pose.Position);
-    position.x += eye == ovrEye_Left ? -1 : 1;
-    SCNRenderer *renderer = [self rendererForEye:eye];
+    position.x += eyeRenderDesc.Eye == ovrEye_Left ? -1 : 1;
+    SCNRenderer *renderer = [self rendererForEye:eyeRenderDesc.Eye];
     // Oops, this doesn't even seem to be necessary! Gives weird distorted image.
 //    renderer.pointOfView.camera.projectionTransform = SCNMatrix4Invert(SCNMatrix4FromMatrix4f(projection));
     renderer.pointOfView.orientation = SCNQuaternionFromOVRQuatf(pose.Orientation);
     renderer.pointOfView.position = position;
+    renderer.pointOfView.camera.xFov = fov.GetHorizontalFovDegrees();
+    renderer.pointOfView.camera.yFov = fov.GetVerticalFovDegrees();
     [renderer render];
 }
 
@@ -625,8 +629,8 @@ bool PlatformCore::SetFullscreen(const Render::RendererParams& rp, int fullscree
 }
 
     // LXI
-    void PlatformCore::RenderEyeView(ovrEyeType eye, Matrix4f projection, ovrPosef pose) {
-        [(OVRView*)View renderEyeView:eye projection:projection pose:pose];
+    void PlatformCore::RenderEyeView(ovrEyeRenderDesc eyeRenderDesc, Matrix4f projection, ovrPosef pose) {
+        [(OVRView*)View renderEyeView:eyeRenderDesc projection:projection pose:pose];
     }
     // LXI
 }}
