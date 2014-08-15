@@ -404,8 +404,8 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     self.leftRenderer.scene = self.scene;
     self.rightRenderer.scene = self.scene;
     // Causes all objects to be rendered black
-//    self.leftRenderer.autoenablesDefaultLighting = YES;
-//    self.rightRenderer.autoenablesDefaultLighting = YES;
+    self.leftRenderer.autoenablesDefaultLighting = YES;
+    self.rightRenderer.autoenablesDefaultLighting = YES;
     self.leftRenderer.pointOfView = [SCNNode node];
     self.rightRenderer.pointOfView = [SCNNode node];
     [self.scene.rootNode addChildNode:self.leftRenderer.pointOfView];
