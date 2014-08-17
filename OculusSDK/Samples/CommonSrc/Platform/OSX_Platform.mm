@@ -352,14 +352,10 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     }
 }
 
-//-(void)
-
 -(id) initWithFrame:(NSRect)frameRect
 {
     NSOpenGLPixelFormatAttribute attr[] =
     {
-//        NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
-//        NSOpenGLPFAWindow,
         NSOpenGLPFADoubleBuffer,
         NSOpenGLPFADepthSize, 24,
         NULL
@@ -416,8 +412,6 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     self.rightRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
     self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 0);
     self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 0);
-//    self.leftRenderer.pointOfView.camera.xFov = 110;
-//    self.rightRenderer.pointOfView.camera.yFov = 110;
     
     SCNNode *node = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:1]];
     node.position = SCNVector3Make(0, 0, -50);
@@ -458,13 +452,16 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     anim.duration = 5;
     [huge.geometry.firstMaterial addAnimation:anim forKey:nil];
     
-    SCNNode *room = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:10000 height:10000 length:10000 chamferRadius:0]];
+    SCNNode *massive = [SCNNode nodeWithGeometry:[SCNSphere sphereWithRadius:10000]];
+    massive.position = SCNVector3Make(15000, 0, 0);
+    [self.scene.rootNode addChildNode:massive];
+    
+    SCNNode *room = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:20000 height:20000 length:20000 chamferRadius:0]];
     room.geometry.firstMaterial = [SCNMaterial material];
     room.geometry.firstMaterial.doubleSided = YES;
     room.geometry.firstMaterial.diffuse.contents = [NSColor greenColor];
     [self.scene.rootNode addChildNode:room];
     
-    // Also causes all objects to be rendered black
 //    SCNNode *light = [SCNNode node];
 //    light.light = [SCNLight light];
 //    light.light.type = SCNLightTypeOmni;
@@ -490,13 +487,17 @@ static const OVR::KeyCode ModifierKeys[] = {OVR::Key_None, OVR::Key_Shift, OVR::
     OVR::FovPort fov = OVR::FovPort(eyeRenderDesc.Fov);
     
     SCNVector3 position = SCNVector3FromOVRVector3(pose.Position);
+    position.x += eyeRenderDesc.ViewAdjust.x;
+    position.y += eyeRenderDesc.ViewAdjust.y;
+    position.z += eyeRenderDesc.ViewAdjust.z;
+    
     position.x += eyeRenderDesc.Eye == ovrEye_Left ? -1 : 1;
     SCNRenderer *renderer = [self rendererForEye:eyeRenderDesc.Eye];
     renderer.pointOfView.orientation = SCNQuaternionFromOVRQuatf(pose.Orientation);
     renderer.pointOfView.position = position;
     renderer.pointOfView.camera.xFov = fov.GetHorizontalFovDegrees();
     renderer.pointOfView.camera.yFov = fov.GetVerticalFovDegrees();
-    // Oops, this doesn't even seem to be necessary! Gives weird distorted image.
+    // Oops, this doesn't seem to be necessary! Gives weird distorted image.
     // Maybe because the projectionTransform is already set on the outside?
     //    renderer.pointOfView.camera.projectionTransform = SCNMatrix4Invert(SCNMatrix4FromMatrix4f(projection));
     [renderer render];
@@ -656,11 +657,10 @@ bool PlatformCore::SetFullscreen(const Render::RendererParams& rp, int fullscree
     return 1;
 }
 
-    // LXI
-    void PlatformCore::RenderEyeView(ovrEyeRenderDesc eyeRenderDesc, Matrix4f projection, ovrPosef pose) {
-        [(OVRView*)View renderEyeView:eyeRenderDesc projection:projection pose:pose];
-    }
-    // LXI
+// LXI
+void PlatformCore::RenderEyeView(ovrEyeRenderDesc eyeRenderDesc, Matrix4f projection, ovrPosef pose) {
+    [(OVRView*)View renderEyeView:eyeRenderDesc projection:projection pose:pose];
+}
 }}
 // GL
 namespace Render { namespace GL { namespace OSX {
