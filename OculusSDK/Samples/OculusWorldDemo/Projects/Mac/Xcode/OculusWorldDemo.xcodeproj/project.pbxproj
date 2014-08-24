@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C251128319A199D100F50B4B /* TunnelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C251128219A199D100F50B4B /* TunnelScene.m */; };
+		C251128919A19AAB00F50B4B /* TestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C251128819A19AAB00F50B4B /* TestScene.m */; };
 		C2B9CEA7199B678000FF8989 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B9CEA6199B678000FF8989 /* SceneKit.framework */; };
 		C2FC8CC5199E446700E883A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2FC8CC4199E446700E883A7 /* QuartzCore.framework */; };
 		E83DE6F419197F6A00EC97E1 /* OptionMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83DE6F019197F6A00EC97E1 /* OptionMenu.cpp */; };
@@ -34,6 +36,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C251128119A199D100F50B4B /* TunnelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TunnelScene.h; path = ../../../../../../TunnelScene.h; sourceTree = "<group>"; };
+		C251128219A199D100F50B4B /* TunnelScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TunnelScene.m; path = ../../../../../../TunnelScene.m; sourceTree = "<group>"; };
+		C251128719A19AAB00F50B4B /* TestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestScene.h; path = ../../../../../../TestScene.h; sourceTree = "<group>"; };
+		C251128819A19AAB00F50B4B /* TestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestScene.m; path = ../../../../../../TestScene.m; sourceTree = "<group>"; };
 		C2B9CEA6199B678000FF8989 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		C2FC8CC4199E446700E883A7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E83DE6F019197F6A00EC97E1 /* OptionMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OptionMenu.cpp; path = ../../../../CommonSrc/Util/OptionMenu.cpp; sourceTree = "<group>"; };
@@ -114,6 +120,10 @@
 		E8CC57BE1908266300EEEC84 = {
 			isa = PBXGroup;
 			children = (
+				C251128119A199D100F50B4B /* TunnelScene.h */,
+				C251128219A199D100F50B4B /* TunnelScene.m */,
+				C251128719A19AAB00F50B4B /* TestScene.h */,
+				C251128819A19AAB00F50B4B /* TestScene.m */,
 				E8E0A589190861220077EB8E /* tinyxml2.cpp */,
 				E8E0A58A190861220077EB8E /* tinyxml2.h */,
 				E8E0A57B190861110077EB8E /* OculusWorldDemo_Scene.cpp */,
@@ -291,10 +301,12 @@
 				E8E0A56619085ED00077EB8E /* OSX_Gamepad.cpp in Sources */,
 				E8E0A57419085ED00077EB8E /* Render_XmlSceneLoader.cpp in Sources */,
 				E8E0A57219085ED00077EB8E /* Render_LoadTextureDDS.cpp in Sources */,
+				C251128919A19AAB00F50B4B /* TestScene.m in Sources */,
 				E8E0A58B190861220077EB8E /* tinyxml2.cpp in Sources */,
 				E8E0A587190861120077EB8E /* Player.cpp in Sources */,
 				E8E0A56819085ED00077EB8E /* OSX_WavPlayer.cpp in Sources */,
 				E8E0A56F19085ED00077EB8E /* Render_Device.cpp in Sources */,
+				C251128319A199D100F50B4B /* TunnelScene.m in Sources */,
 				E8E0A57319085ED00077EB8E /* Render_LoadTextureTGA.cpp in Sources */,
 				E8E0A56719085ED00077EB8E /* OSX_Platform.mm in Sources */,
 				E83DE6F519197F6A00EC97E1 /* RenderProfiler.cpp in Sources */,
