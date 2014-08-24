@@ -90,6 +90,65 @@ static int MapModifiers(unsigned long xmod) {
     
 }
 
++ (CGDirectDisplayID)displayFromScreen:(NSScreen *)s {
+    NSNumber *didref = (NSNumber*)[[s deviceDescription] objectForKey:@"NSScreenNumber"];
+    CGDirectDisplayID disp = (CGDirectDisplayID)[didref longValue];
+    return disp;
+}
+
++ (NSOpenGLPixelFormat *)ovrPixelFormat {
+    NSOpenGLPixelFormatAttribute attr[] = {
+        NSOpenGLPFADoubleBuffer,
+        NSOpenGLPFADepthSize, 24,
+        NULL
+    };
+    
+    return [[NSOpenGLPixelFormat alloc] initWithAttributes:attr];
+}
+
+- (void)awakeFromNib {
+    [self setPixelFormat:[[self class] ovrPixelFormat]];
+    [self commonInit];
+}
+
+
+- (id)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect pixelFormat:[[self class] ovrPixelFormat]];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit {
+    GLint swap = 0;
+    [[self openGLContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
+    //[self setWantsBestResolutionOpenGLSurface:YES];
+    [self setupSceneKit];
+}
+
+- (void)setupSceneKit {
+    self.scene = [TestScene scene];
+    self.leftRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
+    self.rightRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
+    self.leftRenderer.scene = self.scene;
+    self.rightRenderer.scene = self.scene;
+    // Causes all objects to be rendered black
+    self.leftRenderer.autoenablesDefaultLighting = YES;
+    self.rightRenderer.autoenablesDefaultLighting = YES;
+    self.leftRenderer.pointOfView = [SCNNode node];
+    self.rightRenderer.pointOfView = [SCNNode node];
+    [self.scene.rootNode addChildNode:self.leftRenderer.pointOfView];
+    [self.scene.rootNode addChildNode:self.rightRenderer.pointOfView];
+    self.leftRenderer.pointOfView.camera = [SCNCamera camera];
+    self.rightRenderer.pointOfView.camera = [SCNCamera camera];
+    self.leftRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
+    self.rightRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
+    self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 0);
+    self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 0);
+}
+
+
 - (BOOL)acceptsFirstResponder {
     return YES;
 }
@@ -98,11 +157,7 @@ static int MapModifiers(unsigned long xmod) {
     return YES;
 }
 
-+ (CGDirectDisplayID)displayFromScreen:(NSScreen *)s {
-    NSNumber *didref = (NSNumber*)[[s deviceDescription] objectForKey:@"NSScreenNumber"];
-    CGDirectDisplayID disp = (CGDirectDisplayID)[didref longValue];
-    return disp;
-}
+
 
 - (void)warpMouseToCenter {
     NSRect r;
@@ -223,22 +278,7 @@ static const OVR::KeyCode ModifierKeys[] = {
     }
 }
 
-- (id)initWithFrame:(NSRect)frameRect {
-    NSOpenGLPixelFormatAttribute attr[] = {
-        NSOpenGLPFADoubleBuffer,
-        NSOpenGLPFADepthSize, 24,
-        NULL
-    };
-    
-    NSOpenGLPixelFormat *pf = [[NSOpenGLPixelFormat alloc] initWithAttributes:attr];
-    
-    self = [super initWithFrame:frameRect pixelFormat:pf];
-    GLint swap = 0;
-    [[self openGLContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
-    //[self setWantsBestResolutionOpenGLSurface:YES];
-    [self setupSceneKit];
-    return self;
-}
+
 
 - (void)reshape {
     NSRect bounds = [self bounds];
@@ -254,34 +294,15 @@ static const OVR::KeyCode ModifierKeys[] = {
 }
 
 - (BOOL)windowShouldClose:(id)sender {
-    if (_Platform)
+    if (_Platform) {
         _Platform->Exit(0);
-    else
+    }
+    else {
         exit(0);
+    }
     return 1;
 }
 
-// LXI
-- (void)setupSceneKit {
-    self.scene = [TestScene scene];
-    self.leftRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
-    self.rightRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
-    self.leftRenderer.scene = self.scene;
-    self.rightRenderer.scene = self.scene;
-    // Causes all objects to be rendered black
-    self.leftRenderer.autoenablesDefaultLighting = YES;
-    self.rightRenderer.autoenablesDefaultLighting = YES;
-    self.leftRenderer.pointOfView = [SCNNode node];
-    self.rightRenderer.pointOfView = [SCNNode node];
-    [self.scene.rootNode addChildNode:self.leftRenderer.pointOfView];
-    [self.scene.rootNode addChildNode:self.rightRenderer.pointOfView];
-    self.leftRenderer.pointOfView.camera = [SCNCamera camera];
-    self.rightRenderer.pointOfView.camera = [SCNCamera camera];
-    self.leftRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
-    self.rightRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
-    self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 0);
-    self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 0);
-}
 
 - (SCNRenderer *)rendererForEye:(ovrEyeType)eye {
     switch (eye) {

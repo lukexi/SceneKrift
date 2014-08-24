@@ -43,7 +43,7 @@
 		C2CCB7C419A97B2600FC0838 /* TunnelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7C019A97B2600FC0838 /* TunnelScene.m */; };
 		C2CCB7C719A97D6300FC0838 /* SCNToOVR.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB7C519A97D6300FC0838 /* SCNToOVR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2CCB7C819A97D6300FC0838 /* SCNToOVR.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7C619A97D6300FC0838 /* SCNToOVR.mm */; };
-		C2CCB7CB19A981BB00FC0838 /* OVRView.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB7C919A981BB00FC0838 /* OVRView.h */; };
+		C2CCB7CB19A981BB00FC0838 /* OVRView.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB7C919A981BB00FC0838 /* OVRView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2CCB7CC19A981BB00FC0838 /* OVRView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7CA19A981BB00FC0838 /* OVRView.mm */; };
 /* End PBXBuildFile section */
 

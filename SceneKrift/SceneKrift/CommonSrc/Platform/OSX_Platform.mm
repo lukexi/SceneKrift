@@ -87,6 +87,7 @@ PlatformCore::PlatformCore(Application* app, void* nsapp)
 {
     pGamepadManager = *new OSX::GamepadManager();
 }
+    
 PlatformCore::~PlatformCore()
 {
 }
@@ -100,10 +101,12 @@ void PlatformCore::Exit(int exitcode)
 String PlatformCore::GetContentDirectory() const
 {
     NSBundle* bundle = [NSBundle mainBundle];
-    if (bundle)
+    if (bundle) {
         return String([[bundle bundlePath] UTF8String]) + "/Contents/Resources";
-    else
+    }
+    else {
         return ".";
+    }
 }
 
 
@@ -238,7 +241,7 @@ bool PlatformCore::SetFullscreen(const Render::RendererParams& rp, int fullscree
 }
 
 // LXI
-void PlatformCore::RenderEyeView(ovrEyeRenderDesc eyeRenderDesc, Matrix4f projection, ovrPosef pose) {
+void PlatformCore::RenderEyeView(ovrEyeRenderDesc eyeRenderDesc, ovrMatrix4f projection, ovrPosef pose) {
     [(__bridge OVRView*)View renderEyeView:eyeRenderDesc projection:projection pose:pose];
 }
 }}
