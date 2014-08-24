@@ -8,6 +8,7 @@
 
 #import "OVRView.h"
 #import "SCNToOVR.h"
+#import "OVRApp.h"
 #import "TunnelScene.h"
 #import "TestScene.h"
 
@@ -15,9 +16,10 @@ using namespace OVR;
 using namespace OVR::OvrPlatform;
 
 @interface OVRView ()
-@property (nonatomic, retain) SCNScene *scene;
-@property (nonatomic, retain) SCNRenderer *leftRenderer;
-@property (nonatomic, retain) SCNRenderer *rightRenderer;
+@property (nonatomic, strong) SCNScene *scene;
+@property (nonatomic, strong) SCNRenderer *leftRenderer;
+@property (nonatomic, strong) SCNRenderer *rightRenderer;
+@property (nonatomic, strong) OVRApp *ovrApp;
 @end
 
 
@@ -121,6 +123,11 @@ static int MapModifiers(unsigned long xmod) {
 }
 
 - (void)commonInit {
+    self.ovrApp = [[OVRApp alloc] init];
+    self.App = self.ovrApp.App;
+    self.Platform = self.ovrApp.Platform;
+    [self.ovrApp run];
+    
     GLint swap = 0;
     [[self openGLContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
     //[self setWantsBestResolutionOpenGLSurface:YES];

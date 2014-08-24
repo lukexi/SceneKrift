@@ -16,7 +16,6 @@
 		C2CCB79B19A979DC00FC0838 /* OSX_Gamepad.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB77F19A979DC00FC0838 /* OSX_Gamepad.h */; };
 		C2CCB79C19A979DC00FC0838 /* OSX_Platform.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB78019A979DC00FC0838 /* OSX_Platform.h */; };
 		C2CCB79D19A979DC00FC0838 /* OSX_Platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB78119A979DC00FC0838 /* OSX_Platform.mm */; };
-		C2CCB79E19A979DC00FC0838 /* OSX_PlatformObjc.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB78219A979DC00FC0838 /* OSX_PlatformObjc.h */; };
 		C2CCB7A119A979DC00FC0838 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB78519A979DC00FC0838 /* Platform.cpp */; };
 		C2CCB7A219A979DC00FC0838 /* Platform.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB78619A979DC00FC0838 /* Platform.h */; };
 		C2CCB7A319A979DC00FC0838 /* Platform_Default.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB78719A979DC00FC0838 /* Platform_Default.h */; };
@@ -45,6 +44,8 @@
 		C2CCB7C819A97D6300FC0838 /* SCNToOVR.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7C619A97D6300FC0838 /* SCNToOVR.mm */; };
 		C2CCB7CB19A981BB00FC0838 /* OVRView.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB7C919A981BB00FC0838 /* OVRView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2CCB7CC19A981BB00FC0838 /* OVRView.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7CA19A981BB00FC0838 /* OVRView.mm */; };
+		C2CCB7DE19A98A9F00FC0838 /* OVRApp.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB7DC19A98A9F00FC0838 /* OVRApp.h */; };
+		C2CCB7DF19A98A9F00FC0838 /* OVRApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7DD19A98A9F00FC0838 /* OVRApp.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +79,6 @@
 		C2CCB77F19A979DC00FC0838 /* OSX_Gamepad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSX_Gamepad.h; sourceTree = "<group>"; };
 		C2CCB78019A979DC00FC0838 /* OSX_Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSX_Platform.h; sourceTree = "<group>"; };
 		C2CCB78119A979DC00FC0838 /* OSX_Platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OSX_Platform.mm; sourceTree = "<group>"; };
-		C2CCB78219A979DC00FC0838 /* OSX_PlatformObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSX_PlatformObjc.h; sourceTree = "<group>"; };
 		C2CCB78519A979DC00FC0838 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Platform.cpp; sourceTree = "<group>"; };
 		C2CCB78619A979DC00FC0838 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		C2CCB78719A979DC00FC0838 /* Platform_Default.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform_Default.h; sourceTree = "<group>"; };
@@ -107,6 +107,8 @@
 		C2CCB7C619A97D6300FC0838 /* SCNToOVR.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SCNToOVR.mm; path = SceneKrift/SCNToOVR.mm; sourceTree = SOURCE_ROOT; };
 		C2CCB7C919A981BB00FC0838 /* OVRView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OVRView.h; path = SceneKrift/OVRView.h; sourceTree = SOURCE_ROOT; };
 		C2CCB7CA19A981BB00FC0838 /* OVRView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OVRView.mm; path = SceneKrift/OVRView.mm; sourceTree = SOURCE_ROOT; };
+		C2CCB7DC19A98A9F00FC0838 /* OVRApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OVRApp.h; path = SceneKrift/OVRApp.h; sourceTree = SOURCE_ROOT; };
+		C2CCB7DD19A98A9F00FC0838 /* OVRApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OVRApp.mm; path = SceneKrift/OVRApp.mm; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,8 @@
 				C2CCB7C619A97D6300FC0838 /* SCNToOVR.mm */,
 				C2CCB7C919A981BB00FC0838 /* OVRView.h */,
 				C2CCB7CA19A981BB00FC0838 /* OVRView.mm */,
+				C2CCB7DC19A98A9F00FC0838 /* OVRApp.h */,
+				C2CCB7DD19A98A9F00FC0838 /* OVRApp.mm */,
 				C2CCB77A19A979DC00FC0838 /* CommonSrc */,
 				C2CCB7BC19A979EC00FC0838 /* OculusWorldDemo */,
 				C2CCB72619A978A200FC0838 /* SceneKrift */,
@@ -219,7 +223,6 @@
 				C2CCB77F19A979DC00FC0838 /* OSX_Gamepad.h */,
 				C2CCB78019A979DC00FC0838 /* OSX_Platform.h */,
 				C2CCB78119A979DC00FC0838 /* OSX_Platform.mm */,
-				C2CCB78219A979DC00FC0838 /* OSX_PlatformObjc.h */,
 				C2CCB78519A979DC00FC0838 /* Platform.cpp */,
 				C2CCB78619A979DC00FC0838 /* Platform.h */,
 				C2CCB78719A979DC00FC0838 /* Platform_Default.h */,
@@ -284,8 +287,8 @@
 				C2CCB7A219A979DC00FC0838 /* Platform.h in Headers */,
 				C2CCB7B119A979DC00FC0838 /* RenderProfiler.h in Headers */,
 				C2CCB79919A979DC00FC0838 /* Gamepad.h in Headers */,
-				C2CCB79E19A979DC00FC0838 /* OSX_PlatformObjc.h in Headers */,
 				C2CCB79C19A979DC00FC0838 /* OSX_Platform.h in Headers */,
+				C2CCB7DE19A98A9F00FC0838 /* OVRApp.h in Headers */,
 				C2CCB72A19A978A200FC0838 /* SceneKrift.h in Headers */,
 				C2CCB7A719A979DC00FC0838 /* Render_FontEmbed_DejaVu48.h in Headers */,
 				C2CCB7A619A979DC00FC0838 /* Render_Font.h in Headers */,
@@ -423,6 +426,7 @@
 				C2CCB7AA19A979DC00FC0838 /* Render_LoadTextureDDS.cpp in Sources */,
 				C2CCB7A119A979DC00FC0838 /* Platform.cpp in Sources */,
 				C2CCB7AB19A979DC00FC0838 /* Render_LoadTextureTGA.cpp in Sources */,
+				C2CCB7DF19A98A9F00FC0838 /* OVRApp.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

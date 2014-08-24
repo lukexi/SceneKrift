@@ -493,6 +493,7 @@
 				C2CCB76D19A978FB00FC0838 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C2CCB76E19A978FB00FC0838 /* Build configuration list for PBXNativeTarget "SceneKriftAppTests" */ = {
 			isa = XCConfigurationList;
@@ -501,6 +502,7 @@
 				C2CCB77019A978FB00FC0838 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

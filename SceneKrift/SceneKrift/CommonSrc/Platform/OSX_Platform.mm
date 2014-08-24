@@ -21,64 +21,13 @@ limitations under the License.
 
 ************************************************************************************/
 
-#import "../Platform/OSX_PlatformObjc.h"
 #import <SceneKit/SceneKit.h>
 
-
+#import "OVRApp.h"
 #import "OVRView.h"
 
 using namespace OVR;
 using namespace OVR::OvrPlatform;
-
-
-
-@implementation OVRApp
-
-- (void)run {
-    OVR::OvrPlatform::Application* app;
-    @autoreleasepool {
-        _running = YES;
-        {
-            using namespace OVR;
-            using namespace OVR::OvrPlatform;
-            
-            // CreateApplication must be the first call since it does OVR::System::Initialize.
-            app = Application::CreateApplication();
-            OSX::PlatformCore* platform = new OSX::PlatformCore(app, (void *)CFBridgingRetain(self));
-            // The platform attached to an app will be deleted by DestroyApplication.
-            app->SetPlatformCore(platform);
-            
-            [self setApp:app];
-            [self setPlatform:platform];
-            
-            const char* argv[] = {"OVRApp"};
-            int exitCode = app->OnStartup(1, argv);
-            if (exitCode) {
-                Application::DestroyApplication(app);
-                exit(exitCode);
-            }
-        }
-        [self finishLaunching];
-    }
-
-    while ([self isRunning]) {
-        @autoreleasepool {
-            NSEvent* event = [self nextEventMatchingMask:NSAnyEventMask
-                                               untilDate:nil
-                                                  inMode:NSDefaultRunLoopMode
-                                                 dequeue:YES];
-            if (event) {
-                [self sendEvent:event];
-            }
-            _App->OnIdle();
-        }
-    }
-    OVR::OvrPlatform::Application::DestroyApplication(app);
-}
-
-@end
-
-
 
 namespace OVR { namespace OvrPlatform { namespace OSX {
 
@@ -291,11 +240,11 @@ bool RenderDevice::SetFullscreen(DisplayMode fullscreen)
     
 }}}}
 
-
-int main(int argc, char *argv[])
-{
-    NSApplication *nsapp = [OVRApp sharedApplication];
-    [nsapp run];
-    return 0;
-}
+//
+//int main(int argc, char *argv[])
+//{
+//    NSApplication *nsapp = [OVRApp sharedApplication];
+//    [nsapp run];
+//    return 0;
+//}
 
