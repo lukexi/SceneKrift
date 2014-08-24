@@ -41,6 +41,8 @@
 		C2CCB7C219A97B2600FC0838 /* TestScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7BE19A97B2600FC0838 /* TestScene.m */; };
 		C2CCB7C319A97B2600FC0838 /* TunnelScene.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB7BF19A97B2600FC0838 /* TunnelScene.h */; };
 		C2CCB7C419A97B2600FC0838 /* TunnelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7C019A97B2600FC0838 /* TunnelScene.m */; };
+		C2CCB7C719A97D6300FC0838 /* SCNToOVR.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB7C519A97D6300FC0838 /* SCNToOVR.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2CCB7C819A97D6300FC0838 /* SCNToOVR.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB7C619A97D6300FC0838 /* SCNToOVR.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,8 @@
 		C2CCB7BE19A97B2600FC0838 /* TestScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestScene.m; path = ../TestScene.m; sourceTree = "<group>"; };
 		C2CCB7BF19A97B2600FC0838 /* TunnelScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TunnelScene.h; path = ../TunnelScene.h; sourceTree = "<group>"; };
 		C2CCB7C019A97B2600FC0838 /* TunnelScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TunnelScene.m; path = ../TunnelScene.m; sourceTree = "<group>"; };
+		C2CCB7C519A97D6300FC0838 /* SCNToOVR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCNToOVR.h; path = SceneKrift/SCNToOVR.h; sourceTree = SOURCE_ROOT; };
+		C2CCB7C619A97D6300FC0838 /* SCNToOVR.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SCNToOVR.mm; path = SceneKrift/SCNToOVR.mm; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 				C2CCB7BE19A97B2600FC0838 /* TestScene.m */,
 				C2CCB7BF19A97B2600FC0838 /* TunnelScene.h */,
 				C2CCB7C019A97B2600FC0838 /* TunnelScene.m */,
+				C2CCB7C519A97D6300FC0838 /* SCNToOVR.h */,
+				C2CCB7C619A97D6300FC0838 /* SCNToOVR.mm */,
 				C2CCB77A19A979DC00FC0838 /* CommonSrc */,
 				C2CCB7BC19A979EC00FC0838 /* OculusWorldDemo */,
 				C2CCB72619A978A200FC0838 /* SceneKrift */,
@@ -266,6 +272,7 @@
 				C2CCB7A519A979DC00FC0838 /* Render_Device.h in Headers */,
 				C2CCB7A319A979DC00FC0838 /* Platform_Default.h in Headers */,
 				C2CCB7C319A97B2600FC0838 /* TunnelScene.h in Headers */,
+				C2CCB7C719A97D6300FC0838 /* SCNToOVR.h in Headers */,
 				C2CCB7AF19A979DC00FC0838 /* OptionMenu.h in Headers */,
 				C2CCB7A219A979DC00FC0838 /* Platform.h in Headers */,
 				C2CCB7B119A979DC00FC0838 /* RenderProfiler.h in Headers */,
@@ -403,6 +410,7 @@
 				C2CCB7C219A97B2600FC0838 /* TestScene.m in Sources */,
 				C2CCB79D19A979DC00FC0838 /* OSX_Platform.mm in Sources */,
 				C2CCB7B019A979DC00FC0838 /* RenderProfiler.cpp in Sources */,
+				C2CCB7C819A97D6300FC0838 /* SCNToOVR.mm in Sources */,
 				C2CCB7BA19A979E600FC0838 /* Player.cpp in Sources */,
 				C2CCB7AA19A979DC00FC0838 /* Render_LoadTextureDDS.cpp in Sources */,
 				C2CCB7A119A979DC00FC0838 /* Platform.cpp in Sources */,
