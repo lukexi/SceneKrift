@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C2CCB74C19A978FB00FC0838 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB74B19A978FB00FC0838 /* main.m */; };
+		C2CCB74F19A978FB00FC0838 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB74E19A978FB00FC0838 /* AppDelegate.m */; };
+		C2CCB75219A978FB00FC0838 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB75119A978FB00FC0838 /* GameView.m */; };
+		C2CCB75519A978FB00FC0838 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB75419A978FB00FC0838 /* GameViewController.m */; };
+		C2CCB75719A978FB00FC0838 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = C2CCB75619A978FB00FC0838 /* art.scnassets */; };
+		C2CCB75919A978FB00FC0838 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2CCB75819A978FB00FC0838 /* Images.xcassets */; };
+		C2CCB75C19A978FB00FC0838 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2CCB75A19A978FB00FC0838 /* MainMenu.xib */; };
+		C2CCB76819A978FB00FC0838 /* SceneKriftAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB76719A978FB00FC0838 /* SceneKriftAppTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C2CCB76219A978FB00FC0838 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2CCB73E19A978FB00FC0838 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2CCB74519A978FB00FC0838;
+			remoteInfo = SceneKriftApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C2CCB74619A978FB00FC0838 /* SceneKriftApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKriftApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2CCB74A19A978FB00FC0838 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2CCB74B19A978FB00FC0838 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C2CCB74D19A978FB00FC0838 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C2CCB74E19A978FB00FC0838 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C2CCB75019A978FB00FC0838 /* GameView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
+		C2CCB75119A978FB00FC0838 /* GameView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
+		C2CCB75319A978FB00FC0838 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		C2CCB75419A978FB00FC0838 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		C2CCB75619A978FB00FC0838 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		C2CCB75819A978FB00FC0838 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C2CCB75B19A978FB00FC0838 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C2CCB76119A978FB00FC0838 /* SceneKriftAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SceneKriftAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2CCB76619A978FB00FC0838 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2CCB76719A978FB00FC0838 /* SceneKriftAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneKriftAppTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C2CCB74319A978FB00FC0838 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2CCB75E19A978FB00FC0838 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C2CCB73D19A978FB00FC0838 = {
+			isa = PBXGroup;
+			children = (
+				C2CCB74819A978FB00FC0838 /* SceneKriftApp */,
+				C2CCB76419A978FB00FC0838 /* SceneKriftAppTests */,
+				C2CCB74719A978FB00FC0838 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C2CCB74719A978FB00FC0838 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C2CCB74619A978FB00FC0838 /* SceneKriftApp.app */,
+				C2CCB76119A978FB00FC0838 /* SceneKriftAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C2CCB74819A978FB00FC0838 /* SceneKriftApp */ = {
+			isa = PBXGroup;
+			children = (
+				C2CCB74D19A978FB00FC0838 /* AppDelegate.h */,
+				C2CCB74E19A978FB00FC0838 /* AppDelegate.m */,
+				C2CCB75019A978FB00FC0838 /* GameView.h */,
+				C2CCB75119A978FB00FC0838 /* GameView.m */,
+				C2CCB75319A978FB00FC0838 /* GameViewController.h */,
+				C2CCB75419A978FB00FC0838 /* GameViewController.m */,
+				C2CCB75619A978FB00FC0838 /* art.scnassets */,
+				C2CCB75819A978FB00FC0838 /* Images.xcassets */,
+				C2CCB75A19A978FB00FC0838 /* MainMenu.xib */,
+				C2CCB74919A978FB00FC0838 /* Supporting Files */,
+			);
+			path = SceneKriftApp;
+			sourceTree = "<group>";
+		};
+		C2CCB74919A978FB00FC0838 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C2CCB74A19A978FB00FC0838 /* Info.plist */,
+				C2CCB74B19A978FB00FC0838 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C2CCB76419A978FB00FC0838 /* SceneKriftAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				C2CCB76719A978FB00FC0838 /* SceneKriftAppTests.m */,
+				C2CCB76519A978FB00FC0838 /* Supporting Files */,
+			);
+			path = SceneKriftAppTests;
+			sourceTree = "<group>";
+		};
+		C2CCB76519A978FB00FC0838 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C2CCB76619A978FB00FC0838 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C2CCB74519A978FB00FC0838 /* SceneKriftApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2CCB76B19A978FB00FC0838 /* Build configuration list for PBXNativeTarget "SceneKriftApp" */;
+			buildPhases = (
+				C2CCB74219A978FB00FC0838 /* Sources */,
+				C2CCB74319A978FB00FC0838 /* Frameworks */,
+				C2CCB74419A978FB00FC0838 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SceneKriftApp;
+			productName = SceneKriftApp;
+			productReference = C2CCB74619A978FB00FC0838 /* SceneKriftApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C2CCB76019A978FB00FC0838 /* SceneKriftAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2CCB76E19A978FB00FC0838 /* Build configuration list for PBXNativeTarget "SceneKriftAppTests" */;
+			buildPhases = (
+				C2CCB75D19A978FB00FC0838 /* Sources */,
+				C2CCB75E19A978FB00FC0838 /* Frameworks */,
+				C2CCB75F19A978FB00FC0838 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C2CCB76319A978FB00FC0838 /* PBXTargetDependency */,
+			);
+			name = SceneKriftAppTests;
+			productName = SceneKriftAppTests;
+			productReference = C2CCB76119A978FB00FC0838 /* SceneKriftAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C2CCB73E19A978FB00FC0838 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = tree;
+				TargetAttributes = {
+					C2CCB74519A978FB00FC0838 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					C2CCB76019A978FB00FC0838 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = C2CCB74519A978FB00FC0838;
+					};
+				};
+			};
+			buildConfigurationList = C2CCB74119A978FB00FC0838 /* Build configuration list for PBXProject "SceneKriftApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C2CCB73D19A978FB00FC0838;
+			productRefGroup = C2CCB74719A978FB00FC0838 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C2CCB74519A978FB00FC0838 /* SceneKriftApp */,
+				C2CCB76019A978FB00FC0838 /* SceneKriftAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C2CCB74419A978FB00FC0838 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2CCB75719A978FB00FC0838 /* art.scnassets in Resources */,
+				C2CCB75919A978FB00FC0838 /* Images.xcassets in Resources */,
+				C2CCB75C19A978FB00FC0838 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2CCB75F19A978FB00FC0838 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C2CCB74219A978FB00FC0838 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2CCB75519A978FB00FC0838 /* GameViewController.m in Sources */,
+				C2CCB75219A978FB00FC0838 /* GameView.m in Sources */,
+				C2CCB74F19A978FB00FC0838 /* AppDelegate.m in Sources */,
+				C2CCB74C19A978FB00FC0838 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2CCB75D19A978FB00FC0838 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2CCB76819A978FB00FC0838 /* SceneKriftAppTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C2CCB76319A978FB00FC0838 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2CCB74519A978FB00FC0838 /* SceneKriftApp */;
+			targetProxy = C2CCB76219A978FB00FC0838 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C2CCB75A19A978FB00FC0838 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C2CCB75B19A978FB00FC0838 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C2CCB76919A978FB00FC0838 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C2CCB76A19A978FB00FC0838 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C2CCB76C19A978FB00FC0838 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SceneKriftApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C2CCB76D19A978FB00FC0838 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SceneKriftApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C2CCB76F19A978FB00FC0838 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SceneKriftAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SceneKriftApp.app/Contents/MacOS/SceneKriftApp";
+			};
+			name = Debug;
+		};
+		C2CCB77019A978FB00FC0838 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SceneKriftAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SceneKriftApp.app/Contents/MacOS/SceneKriftApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C2CCB74119A978FB00FC0838 /* Build configuration list for PBXProject "SceneKriftApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2CCB76919A978FB00FC0838 /* Debug */,
+				C2CCB76A19A978FB00FC0838 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2CCB76B19A978FB00FC0838 /* Build configuration list for PBXNativeTarget "SceneKriftApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2CCB76C19A978FB00FC0838 /* Debug */,
+				C2CCB76D19A978FB00FC0838 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C2CCB76E19A978FB00FC0838 /* Build configuration list for PBXNativeTarget "SceneKriftAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2CCB76F19A978FB00FC0838 /* Debug */,
+				C2CCB77019A978FB00FC0838 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C2CCB73E19A978FB00FC0838 /* Project object */;
+}
