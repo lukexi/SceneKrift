@@ -123,7 +123,7 @@ static int MapModifiers(unsigned long xmod) {
 }
 
 - (void)commonInit {
-    self.ovrApp = [[OVRApp alloc] init];
+    self.ovrApp = [[OVRApp alloc] initWithView:self];
     self.App = self.ovrApp.App;
     self.Platform = self.ovrApp.Platform;
     [self.ovrApp run];
@@ -155,7 +155,6 @@ static int MapModifiers(unsigned long xmod) {
     self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 0);
 }
 
-
 - (BOOL)acceptsFirstResponder {
     return YES;
 }
@@ -163,8 +162,6 @@ static int MapModifiers(unsigned long xmod) {
 - (BOOL)acceptsFirstMouse:(NSEvent *)ev {
     return YES;
 }
-
-
 
 - (void)warpMouseToCenter {
     NSRect r;

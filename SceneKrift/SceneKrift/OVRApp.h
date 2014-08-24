@@ -12,13 +12,15 @@
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <CoreGraphics/CGDirectDisplay.h>
-
+@class OVRView;
 @interface OVRApp : NSObject
+
+- (instancetype)initWithView:(OVRView *)view;
 
 @property (assign) IBOutlet NSWindow *win;
 @property (assign) OVR::OvrPlatform::OSX::PlatformCore* Platform;
 @property (assign) OVR::OvrPlatform::Application* App;
-
+@property (nonatomic, weak) OVRView *view;
 - (void)run;
 - (void)stop:(id)sender;
 

@@ -104,7 +104,8 @@ void* PlatformCore::SetupWindow(int w, int h)
                                                   backing:NSBackingStoreBuffered
                                                     defer:NO];
     
-    OVRView *view = [[OVRView alloc] initWithFrame:winrect];
+    OVRApp* nsApp = (__bridge OVRApp*)NsApp;
+    OVRView *view = nsApp.view;
     [view setPlatform:this];
     [win setContentView:view];
     [win setAcceptsMouseMovedEvents:YES];

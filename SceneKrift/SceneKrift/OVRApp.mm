@@ -7,16 +7,17 @@
 //
 
 #import "OVRApp.h"
-
+#import "OVRView.h"
 #import "OSX_Platform.h"
 #import "OSX_Gamepad.h"
 
 @implementation OVRApp
 
-- (instancetype)init
+- (instancetype)initWithView:(OVRView *)view
 {
     self = [super init];
     if (self) {
+        self.view = view;
         OVR::OvrPlatform::Application* app;
         @autoreleasepool {
             {
