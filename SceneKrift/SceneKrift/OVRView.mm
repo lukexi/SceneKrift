@@ -11,15 +11,17 @@
 #import "OVRApp.h"
 #import "TunnelScene.h"
 #import "TestScene.h"
-
+#import "OSX_Platform.h"
+#import "OSX_Gamepad.h"
 using namespace OVR;
 using namespace OVR::OvrPlatform;
 
 @interface OVRView ()
-@property (nonatomic, strong) SCNScene *scene;
+
 @property (nonatomic, strong) SCNRenderer *leftRenderer;
 @property (nonatomic, strong) SCNRenderer *rightRenderer;
 @property (nonatomic, strong) OVRApp *ovrApp;
+
 @end
 
 
@@ -117,10 +119,12 @@ static int MapModifiers(unsigned long xmod) {
 - (id)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect pixelFormat:[[self class] ovrPixelFormat]];
     if (self) {
-        [self commonInit];
+//        [self commonInit];
     }
     return self;
 }
+
+static NSString *OVRHeadNodeName = @"OVRHeadNode";
 
 - (void)commonInit {
     self.ovrApp = [[OVRApp alloc] initWithView:self];
@@ -131,28 +135,39 @@ static int MapModifiers(unsigned long xmod) {
     GLint swap = 0;
     [[self openGLContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
     //[self setWantsBestResolutionOpenGLSurface:YES];
-    [self setupSceneKit];
-}
-
-- (void)setupSceneKit {
-    self.scene = [TestScene scene];
-    self.leftRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
-    self.rightRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj options:nil];
-    self.leftRenderer.scene = self.scene;
-    self.rightRenderer.scene = self.scene;
-    // Causes all objects to be rendered black
+    
+    self.leftRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj
+                                                 options:nil];
+    self.rightRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj
+                                                  options:nil];
     self.leftRenderer.autoenablesDefaultLighting = YES;
     self.rightRenderer.autoenablesDefaultLighting = YES;
+    
+    self.headNode = [SCNNode node];
+    self.headNode.name = OVRHeadNodeName;
+    
     self.leftRenderer.pointOfView = [SCNNode node];
     self.rightRenderer.pointOfView = [SCNNode node];
-    [self.scene.rootNode addChildNode:self.leftRenderer.pointOfView];
-    [self.scene.rootNode addChildNode:self.rightRenderer.pointOfView];
+    
+    [self.headNode addChildNode:self.leftRenderer.pointOfView];
+    [self.headNode addChildNode:self.rightRenderer.pointOfView];
+    
     self.leftRenderer.pointOfView.camera = [SCNCamera camera];
     self.rightRenderer.pointOfView.camera = [SCNCamera camera];
     self.leftRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
     self.rightRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
     self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 0);
     self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 0);
+}
+
+- (void)setScene:(SCNScene *)scene {
+    _scene = scene;
+    self.leftRenderer.scene = scene;
+    self.rightRenderer.scene = scene;
+    
+    if (![scene.rootNode childNodeWithName:OVRHeadNodeName recursively:YES]) {
+        [scene.rootNode addChildNode:self.headNode];
+    }
 }
 
 - (BOOL)acceptsFirstResponder {
@@ -165,8 +180,8 @@ static int MapModifiers(unsigned long xmod) {
 
 - (void)warpMouseToCenter {
     NSRect r;
-    r.origin.x = _Platform->Width/2.0f;
-    r.origin.y = _Platform->Height/2.0f;
+    r.origin.x = ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Width/2.0f;
+    r.origin.y = ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Height/2.0f;
     NSPoint w = [[self window] convertRectToScreen:r].origin;
     CGDirectDisplayID disp = [OVRView displayFromScreen:[[self window] screen]];
     CGPoint p = {w.x, CGDisplayPixelsHigh(disp)-w.y};
@@ -195,23 +210,25 @@ static bool LookupKey(NSEvent* ev, wchar_t& ch, OVR::KeyCode& key, unsigned& mod
     OVR::KeyCode key;
     unsigned     mods;
     wchar_t      ch;
-    if (!LookupKey(ev, ch, key, mods))
+    if (!LookupKey(ev, ch, key, mods)) {
         return;
-    if (key == Key_Escape && _Platform->MMode == Mouse_Relative) {
+    }
+    if (key == Key_Escape && ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->MMode == Mouse_Relative) {
         [self warpMouseToCenter];
         CGAssociateMouseAndMouseCursorPosition(true);
         [NSCursor unhide];
-        _Platform->MMode = Mouse_RelativeEscaped;
+        ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->MMode = Mouse_RelativeEscaped;
     }
-    _App->OnKey(key, ch, true, mods);
+    ((OVR::OvrPlatform::Application*) _App)->OnKey(key, ch, true, mods);
 }
 
 - (void)keyUp:(NSEvent*)ev {
     OVR::KeyCode key;
     unsigned     mods;
     wchar_t      ch;
-    if (LookupKey(ev, ch, key, mods))
-        _App->OnKey(key, ch, false, mods);
+    if (LookupKey(ev, ch, key, mods)) {
+        ((OVR::OvrPlatform::Application*) _App)->OnKey(key, ch, false, mods);
+    }
 }
 
 static const OVR::KeyCode ModifierKeys[] = {
@@ -226,9 +243,9 @@ static const OVR::KeyCode ModifierKeys[] = {
             unsigned long m = (1 << (16+i));
             if ((cmods & m) != (_Modifiers & m)) {
                 if (cmods & m)
-                    _App->OnKey(ModifierKeys[i], 0, true, mods);
+                    ((OVR::OvrPlatform::Application*) _App)->OnKey(ModifierKeys[i], 0, true, mods);
                 else
-                    _App->OnKey(ModifierKeys[i], 0, false, mods);
+                    ((OVR::OvrPlatform::Application*) _App)->OnKey(ModifierKeys[i], 0, false, mods);
             }
         }
         _Modifiers = cmods & 0xffff0000;
@@ -241,18 +258,18 @@ static const OVR::KeyCode ModifierKeys[] = {
         case NSRightMouseDragged:
         case NSOtherMouseDragged:
         case NSMouseMoved: {
-            if (_Platform->MMode == OVR::OvrPlatform::Mouse_Relative) {
+            if (((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->MMode == OVR::OvrPlatform::Mouse_Relative) {
                 int dx = [ev deltaX];
                 int dy = [ev deltaY];
                 
                 if (dx != 0 || dy != 0) {
-                    _App->OnMouseMove(dx, dy, Mod_MouseRelative|MapModifiers([ev modifierFlags]));
+                    ((OVR::OvrPlatform::Application*) _App)->OnMouseMove(dx, dy, Mod_MouseRelative|MapModifiers([ev modifierFlags]));
                     [self warpMouseToCenter];
                 }
             }
             else {
                 NSPoint p = [ev locationInWindow];
-                _App->OnMouseMove(p.x, p.y, MapModifiers([ev modifierFlags]));
+                ((OVR::OvrPlatform::Application*) _App)->OnMouseMove(p.x, p.y, MapModifiers([ev modifierFlags]));
             }
         }
             break;
@@ -274,11 +291,11 @@ static const OVR::KeyCode ModifierKeys[] = {
 }
 
 - (void)mouseDown:(NSEvent*)ev {
-    if (_Platform->MMode == Mouse_RelativeEscaped) {
+    if (((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->MMode == Mouse_RelativeEscaped) {
         [self warpMouseToCenter];
         CGAssociateMouseAndMouseCursorPosition(false);
         [NSCursor hide];
-        _Platform->MMode = Mouse_Relative;
+        ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->MMode = Mouse_Relative;
     }
 }
 
@@ -286,20 +303,20 @@ static const OVR::KeyCode ModifierKeys[] = {
 
 - (void)reshape {
     NSRect bounds = [self bounds];
-    _App->OnResize(bounds.size.width, bounds.size.height);
+    ((OVR::OvrPlatform::Application*) _App)->OnResize(bounds.size.width, bounds.size.height);
     
-    _Platform->Width = bounds.size.width;
-    _Platform->Height = bounds.size.height;
+    ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Width = bounds.size.width;
+    ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Height = bounds.size.height;
     
-    if (_Platform->GetRenderer()) {
-        _Platform->GetRenderer()->SetWindowSize(bounds.size.width, bounds.size.height);
+    if (((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->GetRenderer()) {
+        ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->GetRenderer()->SetWindowSize(bounds.size.width, bounds.size.height);
         
     }
 }
 
 - (BOOL)windowShouldClose:(id)sender {
-    if (_Platform) {
-        _Platform->Exit(0);
+    if (((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)) {
+        ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Exit(0);
     }
     else {
         exit(0);

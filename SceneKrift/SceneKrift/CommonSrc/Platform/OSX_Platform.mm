@@ -25,6 +25,7 @@ limitations under the License.
 
 #import "OVRApp.h"
 #import "OVRView.h"
+#import "OSX_Gamepad.h"
 
 using namespace OVR;
 using namespace OVR::OvrPlatform;
@@ -99,15 +100,20 @@ void* PlatformCore::SetupWindow(int w, int h)
     winrect.origin.y = 1000;
     winrect.size.width = w;
     winrect.size.height = h;
-    NSWindow *win = [[NSWindow alloc] initWithContentRect:winrect
-                                                styleMask:NSTitledWindowMask|NSClosableWindowMask
-                                                  backing:NSBackingStoreBuffered
-                                                    defer:NO];
+//    NSWindow *win = [[NSWindow alloc] initWithContentRect:winrect
+//                                                styleMask:NSTitledWindowMask|NSClosableWindowMask
+//                                                  backing:NSBackingStoreBuffered
+//                                                    defer:NO];
+    
+    
     
     OVRApp* nsApp = (__bridge OVRApp*)NsApp;
     OVRView *view = nsApp.view;
+    
+    NSWindow *win = view.window;
+    NSLog(@"Window! %@", win);
     [view setPlatform:this];
-    [win setContentView:view];
+//    [win setContentView:view];
     [win setAcceptsMouseMovedEvents:YES];
     [win setDelegate:view];
     [view setApp:pApp];

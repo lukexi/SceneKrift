@@ -7,18 +7,20 @@
 //
 
 #import <SceneKit/SceneKit.h>
-#import "OSX_Platform.h"
-#import "OSX_Gamepad.h"
+#import "OVR_CAPI.h"
 
 @interface OVRView : NSOpenGLView <NSWindowDelegate>
 
-@property (assign) OVR::OvrPlatform::OSX::PlatformCore* Platform;
-@property (assign) OVR::OvrPlatform::Application* App;
+@property (assign) void * Platform;
+@property (assign) void * App;
 @property unsigned long Modifiers;
+
+@property (nonatomic, strong) SCNScene *scene;
+@property (nonatomic, strong) SCNNode *headNode;
 
 - (void)warpMouseToCenter;
 
-+ (CGDirectDisplayID) displayFromScreen:(NSScreen*)s;
++ (CGDirectDisplayID)displayFromScreen:(NSScreen*)s;
 
 - (void)renderEyeView:(ovrEyeRenderDesc)eyeRenderDesc
            projection:(ovrMatrix4f)projection

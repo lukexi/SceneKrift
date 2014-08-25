@@ -31,6 +31,7 @@
                 app->SetPlatformCore(platform);
                 
                 [self setApp:app];
+                [self setWin:view.window];
                 [self setPlatform:platform];
                 
                 const char* argv[] = {"OVRApp"};

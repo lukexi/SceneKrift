@@ -17,7 +17,7 @@
 
 - (instancetype)initWithView:(OVRView *)view;
 
-@property (assign) IBOutlet NSWindow *win;
+@property (assign) NSWindow *win;
 @property (assign) OVR::OvrPlatform::OSX::PlatformCore* Platform;
 @property (assign) OVR::OvrPlatform::Application* App;
 @property (nonatomic, weak) OVRView *view;
