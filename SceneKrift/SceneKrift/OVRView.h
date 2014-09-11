@@ -25,5 +25,9 @@
 - (void)renderEyeView:(ovrEyeRenderDesc)eyeRenderDesc
            projection:(ovrMatrix4f)projection
                  pose:(ovrPosef)pose;
+- (void)toggleFullScreen;
+- (void)exitFullScreen;
+
+- (void)resetPose;
 
 @end

@@ -67,21 +67,21 @@ void PlatformCore::SetMouseMode(MouseMode mm)
 
     if (Win)
     {
-        if (mm == Mouse_Relative)
-        {
-            [NSCursor hide];
-            [(__bridge OVRView*)View warpMouseToCenter];
-            CGAssociateMouseAndMouseCursorPosition(false);
-        }
-        else
-        {
-            if (MMode == Mouse_Relative)
-            {
-                CGAssociateMouseAndMouseCursorPosition(true);
-                [NSCursor unhide];
-                [(__bridge OVRView*)View warpMouseToCenter];
-            }
-        }
+//        if (mm == Mouse_Relative)
+//        {
+//            [NSCursor hide];
+//            [(__bridge OVRView*)View warpMouseToCenter];
+//            CGAssociateMouseAndMouseCursorPosition(false);
+//        }
+//        else
+//        {
+//            if (MMode == Mouse_Relative)
+//            {
+//                CGAssociateMouseAndMouseCursorPosition(true);
+//                [NSCursor unhide];
+//                [(__bridge OVRView*)View warpMouseToCenter];
+//            }
+//        }
     }
     MMode = mm;
 }
@@ -223,7 +223,7 @@ Render::RenderDevice* RenderDevice::CreateDevice(const RendererParams& rp, void*
         return NULL;
 
     [context makeCurrentContext];
-    [((__bridge NSWindow*)PC->Win) makeKeyAndOrderFront:nil];
+//    [((__bridge NSWindow*)PC->Win) makeKeyAndOrderFront:nil];
 
     return new Render::GL::OSX::RenderDevice(rp, (__bridge void*)context);
 }

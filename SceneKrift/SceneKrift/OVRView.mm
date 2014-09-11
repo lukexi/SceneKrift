@@ -13,6 +13,7 @@
 #import "TestScene.h"
 #import "OSX_Platform.h"
 #import "OSX_Gamepad.h"
+#import "OculusWorldDemo.h"
 using namespace OVR;
 using namespace OVR::OvrPlatform;
 
@@ -24,6 +25,187 @@ using namespace OVR::OvrPlatform;
 
 @end
 
+
+
+
+
+@implementation OVRView {
+    BOOL isSetup;
+}
+
++ (CGDirectDisplayID)displayFromScreen:(NSScreen *)s {
+    NSNumber *didref = (NSNumber*)[[s deviceDescription] objectForKey:@"NSScreenNumber"];
+    CGDirectDisplayID disp = (CGDirectDisplayID)[didref longValue];
+    return disp;
+}
+
++ (NSOpenGLPixelFormat *)ovrPixelFormat {
+    NSOpenGLPixelFormatAttribute attr[] = {
+        NSOpenGLPFADoubleBuffer,
+        NSOpenGLPFADepthSize, 24,
+        NULL
+    };
+    
+    return [[NSOpenGLPixelFormat alloc] initWithAttributes:attr];
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self setPixelFormat:[[self class] ovrPixelFormat]];
+}
+
+
+- (id)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect pixelFormat:[[self class] ovrPixelFormat]];
+    if (self) {
+//        [self commonInit];
+    }
+    return self;
+}
+
+static NSString *OVRHeadNodeName = @"OVRHeadNode";
+
+- (void)viewDidMoveToWindow {
+    [super viewDidMoveToWindow];
+    
+    if (isSetup) {
+        return;
+    }
+    isSetup = YES;
+    self.ovrApp = [[OVRApp alloc] initWithView:self];
+    self.App = self.ovrApp.App;
+    self.Platform = self.ovrApp.Platform;
+    
+    [self.ovrApp performSelector:@selector(run) withObject:nil afterDelay:0];
+    
+    GLint swap = 0;
+    [[self openGLContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
+    //[self setWantsBestResolutionOpenGLSurface:YES];
+    
+    self.leftRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj
+                                                 options:nil];
+    self.rightRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj
+                                                  options:nil];
+    self.leftRenderer.autoenablesDefaultLighting = YES;
+    self.rightRenderer.autoenablesDefaultLighting = YES;
+    
+    self.headNode = [SCNNode node];
+    self.headNode.name = OVRHeadNodeName;
+    
+    self.leftRenderer.pointOfView = [SCNNode node];
+    self.rightRenderer.pointOfView = [SCNNode node];
+    
+    [self.headNode addChildNode:self.leftRenderer.pointOfView];
+    [self.headNode addChildNode:self.rightRenderer.pointOfView];
+    
+    self.leftRenderer.pointOfView.camera = [SCNCamera camera];
+    self.rightRenderer.pointOfView.camera = [SCNCamera camera];
+    self.leftRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
+    self.rightRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
+    self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 0);
+    self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 0);
+    
+    self.window.initialFirstResponder = self;
+    [self.window makeFirstResponder:self];
+}
+
+- (void)setScene:(SCNScene *)scene {
+    _scene = scene;
+    self.leftRenderer.scene = scene;
+    self.rightRenderer.scene = scene;
+    
+    if (![scene.rootNode childNodeWithName:OVRHeadNodeName recursively:YES]) {
+        [scene.rootNode addChildNode:self.headNode];
+    }
+}
+
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+
+- (void)toggleFullScreen {
+    ((OculusWorldDemoApp*) _App)->ChangeDisplay ( false, true, false );
+}
+
+- (void)exitFullScreen {
+    ((OculusWorldDemoApp*) _App)->ChangeDisplay ( true, false, false );
+}
+
+- (void)resetPose {
+    ((OculusWorldDemoApp*) _App)->ResetHmdPose(NULL);
+}
+
+- (SCNRenderer *)rendererForEye:(ovrEyeType)eye {
+    switch (eye) {
+        case ovrEye_Left:
+            return self.leftRenderer;
+            break;
+        case ovrEye_Right:
+            return self.rightRenderer;
+        default:
+            break;
+    }
+    return nil;
+}
+
+- (void)renderEyeView:(ovrEyeRenderDesc)eyeRenderDesc
+           projection:(ovrMatrix4f)projection
+                 pose:(ovrPosef)pose {
+    OVR::FovPort fov = OVR::FovPort(eyeRenderDesc.Fov);
+    
+    SCNVector3 position = SCNVector3FromOVRVector3(pose.Position);
+    position.x += eyeRenderDesc.ViewAdjust.x;
+    position.y += eyeRenderDesc.ViewAdjust.y;
+    position.z += eyeRenderDesc.ViewAdjust.z;
+    
+    position.x += eyeRenderDesc.Eye == ovrEye_Left ? -1 : 1;
+    SCNRenderer *renderer = [self rendererForEye:eyeRenderDesc.Eye];
+    renderer.pointOfView.orientation = SCNQuaternionFromOVRQuatf(pose.Orientation);
+    renderer.pointOfView.position = position;
+    renderer.pointOfView.camera.xFov = fov.GetHorizontalFovDegrees();
+    renderer.pointOfView.camera.yFov = fov.GetVerticalFovDegrees();
+    // Oops, this doesn't seem to be necessary! Gives weird distorted image.
+    // Maybe because the projectionTransform is already set on the outside?
+    //    renderer.pointOfView.camera.projectionTransform = SCNMatrix4Invert(SCNMatrix4FromMatrix4f(projection));
+    [renderer render];
+}
+
+- (void)reshape {
+    NSRect bounds = [self bounds];
+    ((OVR::OvrPlatform::Application*) _App)->OnResize(bounds.size.width, bounds.size.height);
+    
+    ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Width = bounds.size.width;
+    ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Height = bounds.size.height;
+    
+    if (((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->GetRenderer()) {
+        ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->GetRenderer()->SetWindowSize(bounds.size.width, bounds.size.height);
+        
+    }
+}
+
+- (BOOL)windowShouldClose:(id)sender {
+    if (((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)) {
+        ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Exit(0);
+    }
+    else {
+        exit(0);
+    }
+    return 1;
+}
+
+
+- (void)warpMouseToCenter {
+    //    NSRect r;
+    //    r.origin.x = ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Width/2.0f;
+    //    r.origin.y = ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Height/2.0f;
+    //    NSPoint w = [[self window] convertRectToScreen:r].origin;
+    //    CGDirectDisplayID disp = [OVRView displayFromScreen:[[self window] screen]];
+    //    CGPoint p = {w.x, CGDisplayPixelsHigh(disp)-w.y};
+    //    CGDisplayMoveCursorToPoint(disp, p);
+}
+
+#if 0
 
 static int KeyMap[][2] = {
     { NSDeleteFunctionKey,      OVR::Key_Delete },
@@ -89,105 +271,6 @@ static int MapModifiers(unsigned long xmod) {
 }
 
 
-
-@implementation OVRView {
-    
-}
-
-+ (CGDirectDisplayID)displayFromScreen:(NSScreen *)s {
-    NSNumber *didref = (NSNumber*)[[s deviceDescription] objectForKey:@"NSScreenNumber"];
-    CGDirectDisplayID disp = (CGDirectDisplayID)[didref longValue];
-    return disp;
-}
-
-+ (NSOpenGLPixelFormat *)ovrPixelFormat {
-    NSOpenGLPixelFormatAttribute attr[] = {
-        NSOpenGLPFADoubleBuffer,
-        NSOpenGLPFADepthSize, 24,
-        NULL
-    };
-    
-    return [[NSOpenGLPixelFormat alloc] initWithAttributes:attr];
-}
-
-- (void)awakeFromNib {
-    [self setPixelFormat:[[self class] ovrPixelFormat]];
-    [self commonInit];
-}
-
-
-- (id)initWithFrame:(NSRect)frameRect {
-    self = [super initWithFrame:frameRect pixelFormat:[[self class] ovrPixelFormat]];
-    if (self) {
-//        [self commonInit];
-    }
-    return self;
-}
-
-static NSString *OVRHeadNodeName = @"OVRHeadNode";
-
-- (void)commonInit {
-    self.ovrApp = [[OVRApp alloc] initWithView:self];
-    self.App = self.ovrApp.App;
-    self.Platform = self.ovrApp.Platform;
-    [self.ovrApp run];
-    
-    GLint swap = 0;
-    [[self openGLContext] setValues:&swap forParameter:NSOpenGLCPSwapInterval];
-    //[self setWantsBestResolutionOpenGLSurface:YES];
-    
-    self.leftRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj
-                                                 options:nil];
-    self.rightRenderer = [SCNRenderer rendererWithContext:self.openGLContext.CGLContextObj
-                                                  options:nil];
-    self.leftRenderer.autoenablesDefaultLighting = YES;
-    self.rightRenderer.autoenablesDefaultLighting = YES;
-    
-    self.headNode = [SCNNode node];
-    self.headNode.name = OVRHeadNodeName;
-    
-    self.leftRenderer.pointOfView = [SCNNode node];
-    self.rightRenderer.pointOfView = [SCNNode node];
-    
-    [self.headNode addChildNode:self.leftRenderer.pointOfView];
-    [self.headNode addChildNode:self.rightRenderer.pointOfView];
-    
-    self.leftRenderer.pointOfView.camera = [SCNCamera camera];
-    self.rightRenderer.pointOfView.camera = [SCNCamera camera];
-    self.leftRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
-    self.rightRenderer.pointOfView.camera.automaticallyAdjustsZRange = YES;
-    self.leftRenderer.pointOfView.position = SCNVector3Make(-1, 0, 0);
-    self.rightRenderer.pointOfView.position = SCNVector3Make(1, 0, 0);
-}
-
-- (void)setScene:(SCNScene *)scene {
-    _scene = scene;
-    self.leftRenderer.scene = scene;
-    self.rightRenderer.scene = scene;
-    
-    if (![scene.rootNode childNodeWithName:OVRHeadNodeName recursively:YES]) {
-        [scene.rootNode addChildNode:self.headNode];
-    }
-}
-
-- (BOOL)acceptsFirstResponder {
-    return YES;
-}
-
-- (BOOL)acceptsFirstMouse:(NSEvent *)ev {
-    return YES;
-}
-
-- (void)warpMouseToCenter {
-    NSRect r;
-    r.origin.x = ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Width/2.0f;
-    r.origin.y = ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Height/2.0f;
-    NSPoint w = [[self window] convertRectToScreen:r].origin;
-    CGDirectDisplayID disp = [OVRView displayFromScreen:[[self window] screen]];
-    CGPoint p = {w.x, CGDisplayPixelsHigh(disp)-w.y};
-    CGDisplayMoveCursorToPoint(disp, p);
-}
-
 static bool LookupKey(NSEvent* ev, wchar_t& ch, OVR::KeyCode& key, unsigned& mods) {
     NSString* chars = [ev charactersIgnoringModifiers];
     if ([chars length] == 0)
@@ -230,6 +313,7 @@ static bool LookupKey(NSEvent* ev, wchar_t& ch, OVR::KeyCode& key, unsigned& mod
         ((OVR::OvrPlatform::Application*) _App)->OnKey(key, ch, false, mods);
     }
 }
+
 
 static const OVR::KeyCode ModifierKeys[] = {
     OVR::Key_None, OVR::Key_Shift, OVR::Key_Control, OVR::Key_Alt, OVR::Key_Meta
@@ -298,66 +382,7 @@ static const OVR::KeyCode ModifierKeys[] = {
         ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->MMode = Mouse_Relative;
     }
 }
+#endif
 
-
-
-- (void)reshape {
-    NSRect bounds = [self bounds];
-    ((OVR::OvrPlatform::Application*) _App)->OnResize(bounds.size.width, bounds.size.height);
-    
-    ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Width = bounds.size.width;
-    ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Height = bounds.size.height;
-    
-    if (((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->GetRenderer()) {
-        ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->GetRenderer()->SetWindowSize(bounds.size.width, bounds.size.height);
-        
-    }
-}
-
-- (BOOL)windowShouldClose:(id)sender {
-    if (((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)) {
-        ((OVR::OvrPlatform::OSX::PlatformCore*) _Platform)->Exit(0);
-    }
-    else {
-        exit(0);
-    }
-    return 1;
-}
-
-
-- (SCNRenderer *)rendererForEye:(ovrEyeType)eye {
-    switch (eye) {
-        case ovrEye_Left:
-            return self.leftRenderer;
-            break;
-        case ovrEye_Right:
-            return self.rightRenderer;
-        default:
-            break;
-    }
-    return nil;
-}
-
-- (void)renderEyeView:(ovrEyeRenderDesc)eyeRenderDesc
-           projection:(ovrMatrix4f)projection
-                 pose:(ovrPosef)pose {
-    OVR::FovPort fov = OVR::FovPort(eyeRenderDesc.Fov);
-    
-    SCNVector3 position = SCNVector3FromOVRVector3(pose.Position);
-    position.x += eyeRenderDesc.ViewAdjust.x;
-    position.y += eyeRenderDesc.ViewAdjust.y;
-    position.z += eyeRenderDesc.ViewAdjust.z;
-    
-    position.x += eyeRenderDesc.Eye == ovrEye_Left ? -1 : 1;
-    SCNRenderer *renderer = [self rendererForEye:eyeRenderDesc.Eye];
-    renderer.pointOfView.orientation = SCNQuaternionFromOVRQuatf(pose.Orientation);
-    renderer.pointOfView.position = position;
-    renderer.pointOfView.camera.xFov = fov.GetHorizontalFovDegrees();
-    renderer.pointOfView.camera.yFov = fov.GetVerticalFovDegrees();
-    // Oops, this doesn't seem to be necessary! Gives weird distorted image.
-    // Maybe because the projectionTransform is already set on the outside?
-    //    renderer.pointOfView.camera.projectionTransform = SCNMatrix4Invert(SCNMatrix4FromMatrix4f(projection));
-    [renderer render];
-}
 
 @end

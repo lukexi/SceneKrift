@@ -129,6 +129,7 @@
 		C21CC27719B40D590055BAA7 /* Util_LatencyTest2State.h in Headers */ = {isa = PBXBuildFile; fileRef = C21CC1FD19B40D590055BAA7 /* Util_LatencyTest2State.h */; };
 		C21CC27819B40D590055BAA7 /* Util_Render_Stereo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C21CC1FE19B40D590055BAA7 /* Util_Render_Stereo.cpp */; };
 		C21CC27919B40D590055BAA7 /* Util_Render_Stereo.h in Headers */ = {isa = PBXBuildFile; fileRef = C21CC1FF19B40D590055BAA7 /* Util_Render_Stereo.h */; };
+		C21CC28019B412DC0055BAA7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C21CC27F19B412DC0055BAA7 /* README.md */; };
 		C268566919A9FE9E00A8FC16 /* Hey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C268566819A9FE9E00A8FC16 /* Hey.swift */; };
 		C2CCB72A19A978A200FC0838 /* SceneKrift.h in Headers */ = {isa = PBXBuildFile; fileRef = C2CCB72919A978A200FC0838 /* SceneKrift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2CCB73419A978A200FC0838 /* SceneKriftTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CCB73319A978A200FC0838 /* SceneKriftTests.m */; };
@@ -293,6 +294,7 @@
 		C21CC1FD19B40D590055BAA7 /* Util_LatencyTest2State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util_LatencyTest2State.h; sourceTree = "<group>"; };
 		C21CC1FE19B40D590055BAA7 /* Util_Render_Stereo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Util_Render_Stereo.cpp; sourceTree = "<group>"; };
 		C21CC1FF19B40D590055BAA7 /* Util_Render_Stereo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util_Render_Stereo.h; sourceTree = "<group>"; };
+		C21CC27F19B412DC0055BAA7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C268566819A9FE9E00A8FC16 /* Hey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hey.swift; sourceTree = "<group>"; };
 		C2CCB72419A978A200FC0838 /* SceneKrift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SceneKrift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2CCB72819A978A200FC0838 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 		C2CCB71A19A978A200FC0838 = {
 			isa = PBXGroup;
 			children = (
+				C21CC27F19B412DC0055BAA7 /* README.md */,
 				C21CC27A19B40D600055BAA7 /* LibOVR */,
 				C268566819A9FE9E00A8FC16 /* Hey.swift */,
 				C2CCB7BD19A97B2600FC0838 /* TestScene.h */,
@@ -965,6 +968,7 @@
 				C21CC24719B40D590055BAA7 /* OVR_ThreadsPthread.cpp in Sources */,
 				C21CC20D19B40D590055BAA7 /* CAPI_GL_DistortionRenderer.cpp in Sources */,
 				C21CC21919B40D590055BAA7 /* OVR_Alg.cpp in Sources */,
+				C21CC28019B412DC0055BAA7 /* README.md in Sources */,
 				C21CC26419B40D590055BAA7 /* OVR_SerialFormat.cpp in Sources */,
 				C21CC20919B40D590055BAA7 /* CAPI_HMDState.cpp in Sources */,
 				C21CC23E19B40D590055BAA7 /* OVR_String_PathUtil.cpp in Sources */,
